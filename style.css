@@ -9,6 +9,11 @@ body {
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction: column;
+}
+
+#button-container {
+    margin:5px;
 }
 
 #grid-container {
@@ -31,15 +36,11 @@ body {
     border-left: solid 1px #ddd;
 }
 
-.first-square {
-    border: none!important;
-}
-
-.first-row {
+.no-top-border {
     border-top: none!important;
 }
 
-.first-col {
+.no-left-border {
     border-left: none!important;
 }
 
