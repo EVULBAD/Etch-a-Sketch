@@ -2,8 +2,27 @@
 const square = document.createElement("div"),
     grid = document.querySelector("#grid");
 let gridSize = 16,
-    rainbow;
+    rainbow = false;
 
+//function the generates random RGBcode.
+function randomRGB() {
+    let newRGB = "";
+    for (i = 1; i < 4; i++) {
+        let rgbGen = Math.floor(Math.random() * 255);
+        if (i < 2) {
+            newRGB += rgbGen;
+        } else if (i == 2) {
+            newRGB += ", " + rgbGen;
+        } else {
+            newRGB += ", " + rgbGen;
+        }
+    }
+    return newRGB;
+}
+
+console.log(randomRGB());
+
+//function that creates grid.
 function gridSetup() {
     //adjusting grid size
     square.classList.add("square");
@@ -29,12 +48,16 @@ function gridSetup() {
 
     for (i = 0; i < squareClick.length; i++) {
         let sqr = squareClick[i];
-        sqr.addEventListener("mouseover", function blackFill() {
-            sqr.setAttribute("style", "background: black");
+        sqr.addEventListener("mouseover", function color() {
+            if (rainbow == false) {
+                sqr.setAttribute("style", "background: black");
+            } else {
+                let randomColor = "background: rgb(" + randomRGB() + ")";
+                sqr.setAttribute("style", randomColor);
+            }  
         });
     }
 }
-
 
 //open default 16x16 grid on page load
 window.onload = gridSetup();
@@ -53,11 +76,13 @@ document.querySelector(".size").addEventListener("click", function size() {
 });
 
 //  "rainbow" button; makes squares get colored with random color instead of black
-/*document.querySelector(".rainbow").addEventListener("click",function clear(){
-    rainbow = true;
+document.querySelector(".rainbow").addEventListener("click",function clear(){
+    if (rainbow == false) {
+        rainbow = true;
+    } else if (rainbow == true) {
+        rainbow = false;
+    }
 });
-
-console.log(rainbow);*/
 
 //  "clear" button; clears the grid
 document.querySelector(".clear").addEventListener("click",function clear(){
