@@ -1,4 +1,4 @@
-//declarations
+//declarations.
 const square = document.createElement("div"),
     grid = document.querySelector("#grid");
 let gridSize = 16,
@@ -30,27 +30,24 @@ function colorSquares() {
         let sqr = squareClick[i],
             black = "background-color: rgba(1, 1, 1, 1)",
             currentRGB,
+            newRGB,
             higherAlpha;
         sqr.addEventListener("mouseover", function color() {
             currentRGB = sqr.getAttribute("style");
-            if (rainbow == false) {
-                if (opacityLow == false) {
-                    sqr.setAttribute("style", black);
-                } else if (opacityLow == true && currentRGB == null) {
-                    sqr.setAttribute("style", "background-color: rgba(0, 0, 0, 0.1)");
-                } else if (opacityLow == true && currentRGB != null) {
-                    currentRGB = currentRGB.replace("background-color: rgba(","").replace(")","").replace(/ /g,"").split(",");
-                    higherAlpha = parseFloat(currentRGB[3]) + 0.1;
-                    currentRGB.pop();
-                    currentRGB.push(higherAlpha);
-                    currentRGB = "background-color: rgba(" + currentRGB.join(", ") + ")";
-                    sqr.setAttribute("style", currentRGB);
-                }
-            } else if (rainbow == true && opacityLow == false) {
+            if (opacityLow == false && rainbow == false) {
+                sqr.setAttribute("style", black);
+            } else if (opacityLow == true && currentRGB == null) {
+                sqr.setAttribute("style", "background-color: rgba(0, 0, 0, 0.1)");
+            } else if (opacityLow == true && currentRGB != null) {
+                currentRGB = currentRGB.replace("background-color: rgba(","").replace(")","").replace(/ /g,"").split(",");
+                higherAlpha = parseFloat(currentRGB[3]) + 0.1;
+                currentRGB.pop();
+                currentRGB.push(higherAlpha);
+                newRGB = "background-color: rgba(" + currentRGB.join(", ") + ")";
+                sqr.setAttribute("style", newRGB);
+            } else if (rainbow == true) {
                 let randomColor = "background-color: rgba(" + randomRGB() + ", 1)";
                 sqr.setAttribute("style", randomColor);
-            } else {
-
             }
         });
     }
@@ -132,11 +129,13 @@ document.querySelector(".borders").addEventListener("click",function clear(){
     }
 });
 
-//  "opacity high/low" button; makes squares fill in with 10% opacity
+//  "opacity high/low" button; makes squares fill in black with 10% opacity.
 document.querySelector(".opacity").addEventListener("click", function opacity(){
     if (opacityLow == false) {
         document.querySelector(".opacity").innerHTML ="opacity low";
         opacityLow = true;
+        document.querySelector(".rainbow").innerHTML ="<span>r</span><span>a</span><span>i</span><span>n</span><span>b</span><span>o</span><span>w</span> off";
+        rainbow = false;
     } else {
         document.querySelector(".opacity").innerHTML ="opacity high";
         opacityLow = false;
@@ -148,6 +147,8 @@ document.querySelector(".rainbow").addEventListener("click",function clear(){
     if (rainbow == false) {
         document.querySelector(".rainbow").innerHTML ="<span>r</span><span>a</span><span>i</span><span>n</span><span>b</span><span>o</span><span>w</span> on";
         rainbow = true;
+        document.querySelector(".opacity").innerHTML ="opacity high";
+        opacityLow = false;
     } else {
         document.querySelector(".rainbow").innerHTML ="<span>r</span><span>a</span><span>i</span><span>n</span><span>b</span><span>o</span><span>w</span> off";
         rainbow = false;
