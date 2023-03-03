@@ -19,6 +19,7 @@ body {
     justify-content:center;
     align-items:center;
     column-gap:5px;
+    margin-top:0;
 }
 
 button {
@@ -27,8 +28,9 @@ button {
     background:black;
     color:white;
     border:solid 1px black;
-    border:none;
     padding:5px;
+    width:0;
+    height:100%;
 }
 
 .rainbow span:nth-child(10n + 1) {
